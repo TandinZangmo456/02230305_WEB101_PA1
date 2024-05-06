@@ -1,7 +1,3 @@
-Sure, here are the README files for both HTML files:
-
----
-
 ### Pokédex HTML File
 
 #### Description:
@@ -40,9 +36,6 @@ This HTML file generates a list of Pokémon cards, each displaying basic informa
 - Pagination is implemented to load more Pokémon as the user scrolls down the page.
 - Errors during data fetching are handled gracefully, displaying an error message to the user.
 
-Certainly! Here's a README.md file for the provided CSS code:
-
----
 
 # CSS Reset and Styling
 
@@ -72,6 +65,6 @@ To use the styling, include the `style.css` file in your HTML document:
 
 ## Additional Notes:
 
-- These stylesheets are designed to be flexible and customizable, allowing developers to adjust colors, fonts, and other visual elements to suit their specific design requirements.
+- The stylesheets are designed to be flexible and customizable, allowing developers to adjust colors, fonts, and other visual elements to suit their specific design requirements.
 - Ensure to adjust file paths accordingly based on the directory structure of your project.
 - Feel free to modify and extend these stylesheets as needed to match the design of your web application.
