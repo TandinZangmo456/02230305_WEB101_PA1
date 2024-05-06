@@ -1,0 +1,272 @@
+/* Reset CSS */
+element.style {
+    height: auto;
+    overflow: auto;
+}
+
+.listing {
+    max-width: 1140px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    row-gap: 12px;
+}
+
+.listing-div {
+    display: flex; flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.listing-item {
+    /* Add styles for each item */
+    width: calc(25% - 16px); /* Set the width for each item to occupy 25% of the container width with some gap */
+    margin-bottom: 16px; /* Add some space between items */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set text color */
+* {
+    color: var(--text-normal-color);
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #161616;
+    background-position: center;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+/* Header styles */
+.header-main {
+    background-color: #161616; /* Updated color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1140px; /* Adjusted max-width */
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+}
+
+.header-img img {
+    width: 30px;
+    height: auto;
+    margin-right: 5px;
+}
+
+/* Divider styles */
+.divider {
+    height: 1px;
+    background-color: #e0e0e0;
+}
+
+/* Search styles */
+.search-main {
+    background-color: #161616; /* Updated color */
+    padding: 1rem;
+    max-width: 1140px; /* Adjusted max-width */
+    width: 100%;
+    margin: auto;
+}
+
+.search form {
+    display: flex;
+}
+
+.search input[type="text"] {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: #242424;
+    outline: none;
+}
+
+.search button {
+    outline: none;
+    padding: 0.5rem 1rem;
+    background-color: #242424;
+    color: var(--text-normal-color);
+    border: 1.4px solid #303030;
+    border-left: none;
+    cursor: pointer;
+    transition: all .3s ease-in;
+}
+
+.search button:hover {
+    background-color: 303030;
+}
+
+.search-example {
+    margin-top: 1rem;
+    display: flex; /* Added */
+    flex-wrap: wrap; /* Added */
+}
+
+.search-example p {
+    margin-bottom: 0.5rem;
+    margin-right: 1rem; /* Added */
+}
+
+/* Navigation styles */
+.navigation-main {
+    background-color: #161616; /* Updated color */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navigation {
+    padding: 1rem;
+}
+
+.navigation ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #333;
+    padding: 1rem;
+
+}
+
+.navigation img {
+    width: 20px;
+    height: auto;
+    margin-left: 5px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Change the color as needed */
+    margin-bottom: 10px;
+    padding: 2%;
+  }
+  
+
+/* Pokemon card styles */
+#pokemon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 90%; /* Adjust the max-width to create space from both sides */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 0 20px; /* Add padding to create space from both sides */
+}
+
+
+.pokemon-card {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 8px; /* Add border radius for rounded corners */
+    padding: 0.25rem; /* Reduce padding for spacing */
+    margin: 1rem; /* Increase margin for more space between cards */
+    width: calc(20% - 2rem); /* Reduce card width to occupy 20% of the container width */
+    height: 350px; /* Reset the height to adjust based on content */
+    /* You may adjust the width percentage and padding/margin values as needed */
+}
+
+
+.pokemon-card:hover {
+    filter: none; /* Remove grayscale filter on hover */
+}
+
+.pokemon-name {
+    padding: 0.5rem;
+    font-weight: bold;
+}
+
+.pokemon-weight {
+    padding: 0.5rem;
+    font-weight: bold;
+}
+
+.pokemon-height {
+    padding: 0.5rem;
+    font-weight: bold;
+}
+
+.pokemon-image {
+    width: 100%;
+    height: auto;
+}
+
+.pokemon-type {
+    padding: 0.5rem;
+    font-style: italic;
+}
+
+/* Loading styles */
+#loading {
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Adjust bookmark icon size */
+.navigation img.bookmark-icon {
+    width: 20px;
+    height: 20px;
+}
+
+:root {
+    --text-normal-color: #9A9A9A;
+    --text-hover-color: #DCDCDC;
+}
+
+html {
+    display: block;
+}
+
+head {
+    display: none;
+}
+
+body {
+    background-color: #161616;
+    background-image: url(/BG-DOT.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: Outfit, sans-serif;
+    color: var(--text-normal-color);
+    margin: 0; /* Added margin: 0; */
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-normal-color: #9A9A9A;
+    --text-hover-color: #DCDCDC;
+}
+
