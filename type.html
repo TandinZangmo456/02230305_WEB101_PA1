@@ -5,20 +5,17 @@
     <link rel="icon" href="/src/pokeball.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
-    <link rel="stylesheet" href="type.css">
-    <style>
-        /* Paste the CSS provided in the previous response here */
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="root">
         <section class="header-main">
             <div class="header">
                 <a href="/">
-                   <div class="header-left">
-                    <div class="header-img"><img src="/src/pokeball.png" alt="Pokeball logo"></div>
-                    <p>Pokedex</p>
-                   </div> 
+                    <div class="header-left">
+                        <div class="header-img"><img src="/src/pokeball.png" alt="Pokeball logo"></div>
+                        <p>Pokedex</p>
+                    </div>
                 </a>
             </div>
             <div class="divider"></div>
@@ -44,12 +41,12 @@
             </div>
         </section>
     </div>
-
+    
     <section class="navigation-main">
         <div class="navigation">
             <ul>
                 <li><a href="/">Home <img src="/src/Home.png" alt="Home icon"></a></li>
-                <li><a href="/">Bookmark <img src="/src/bookmark.png" alt="Bookmark icon"></a></li>
+                <li><a href="#">Bookmark <img src="/src/bookmark.png" alt="Bookmark icon"></a></li>
             </ul>
         </div>
     </section>
@@ -62,10 +59,15 @@
                 <th>Details</th>
             </tr>
         </table>
-    </div>    
-    
+    </div>
+
     <script>
-        async function fetchPokemonDetails(pokemonName) {
+        function handlePokemonSelection(pokemonName) {
+            const pokemonDetailsContainer = document.querySelector('.pokemon-info-table');
+            fetchPokemonDetails(pokemonName, pokemonDetailsContainer);
+        }
+
+        async function fetchPokemonDetails(pokemonName, pokemonDetailsContainer) {
             try {
                 const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
                 if (!response.ok) {
@@ -73,8 +75,13 @@
                 }
                 const pokemonData = await response.json();
 
-                const pokemonDetailsContainer = document.querySelector('.pokemon-info-table');
-                pokemonDetailsContainer.innerHTML = ''; // Clear previous details
+                // Clear previous details
+                pokemonDetailsContainer.innerHTML = `
+                    <tr>
+                        <th>Info</th>
+                        <th>Details</th>
+                    </tr>
+                `;
 
                 // Display name
                 appendRowToTable(pokemonDetailsContainer, 'Name', pokemonData.name);
@@ -96,11 +103,12 @@
                 appendRowToTable(pokemonDetailsContainer, 'Front Sprite', `<img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name} Front Sprite">`);
                 appendRowToTable(pokemonDetailsContainer, 'Back Sprite', `<img src="${pokemonData.sprites.back_default}" alt="${pokemonData.name} Back Sprite">`);
 
-                // Store the fetched data in localStorage
-                localStorage.setItem('pokemonDetails', JSON.stringify(pokemonData));
+                // Additional details like weight and height
+                appendRowToTable(pokemonDetailsContainer, 'Weight', `${pokemonData.weight} kg`);
+                appendRowToTable(pokemonDetailsContainer, 'Height', `${pokemonData.height} m`);
 
-                // Update URL with the selected Pokémon name
-                window.history.pushState({}, '', `?pokemon=${pokemonName}`);
+                // Store the fetched data in localStorage
+                localStorage.setItem(pokemonName, JSON.stringify(pokemonData));
             } catch (error) {
                 console.error('Error fetching Pokémon details:', error.message);
                 const errorMessageRow = document.createElement('tr');
@@ -125,27 +133,13 @@
             container.appendChild(row);
         }
 
-        // Check if there are any stored Pokémon details in localStorage
-        const storedPokemonDetails = localStorage.getItem('pokemonDetails');
-        if (storedPokemonDetails) {
-            const parsedPokemonDetails = JSON.parse(storedPokemonDetails);
-            fetchPokemonDetails(parsedPokemonDetails.name); // Changed from displayPokemonDetails
-        } else {
-            // If no stored details, check if the URL contains a Pokémon name parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const pokemonNameParam = urlParams.get('pokemon');
-            if (pokemonNameParam) {
-                fetchPokemonDetails(pokemonNameParam);
-            }
-        }
-
         // Add event listener to all anchor tags with data-name attribute
         const pokemonLinks = document.querySelectorAll('a[data-name]');
         pokemonLinks.forEach(link => {
             link.addEventListener('click', function(event) {
                 event.preventDefault(); // Prevent default anchor tag behavior
                 const pokemonName = this.dataset.name; // Get the Pokémon name from data-name attribute
-                fetchPokemonDetails(pokemonName); // Fetch details for the clicked Pokémon
+                handlePokemonSelection(pokemonName); // Fetch details for the clicked Pokémon
             });
         });
 
@@ -155,7 +149,7 @@
             event.preventDefault(); // Prevent default form submission
             const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
             if (searchTerm) {
-                fetchPokemonDetails(searchTerm); // Fetch details for the searched Pokémon
+                handlePokemonSelection(searchTerm); // Fetch details for the searched Pokémon
             } else {
                 alert('Please enter a Pokémon name.');
             }

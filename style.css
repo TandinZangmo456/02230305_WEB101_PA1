@@ -213,7 +213,7 @@ h2 {
 }
 
 .pokemon-image {
-    width: 100%;
+    width: 75%;
     height: auto;
 }
 
@@ -269,4 +269,3 @@ body {
     --text-normal-color: #9A9A9A;
     --text-hover-color: #DCDCDC;
 }
-
