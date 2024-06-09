@@ -104,8 +104,8 @@
                 appendRowToTable(pokemonDetailsContainer, 'Back Sprite', `<img src="${pokemonData.sprites.back_default}" alt="${pokemonData.name} Back Sprite">`);
 
                 // Additional details like weight and height
-                appendRowToTable(pokemonDetailsContainer, 'Weight', `${pokemonData.weight} kg`);
-                appendRowToTable(pokemonDetailsContainer, 'Height', `${pokemonData.height} m`);
+                appendRowToTable(pokemonDetailsContainer, 'Weight', `${pokemonData.weight / 10} kg`);
+                appendRowToTable(pokemonDetailsContainer, 'Height', `${pokemonData.height / 10} m`);
 
                 // Store the fetched data in localStorage
                 localStorage.setItem(pokemonName, JSON.stringify(pokemonData));

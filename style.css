@@ -265,6 +265,22 @@ body {
     box-sizing: border-box;
 }
 
+.pokemon-card.caught {
+    background-color: lightblue; /* Add any styling to indicate caught Pokémon */
+}
+
+/* Style for the plus sign */
+.plus-sign-container {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.plus-sign {
+    color: green;
+    font-size: 24px;
+}
+
 :root {
     --text-normal-color: #9A9A9A;
     --text-hover-color: #DCDCDC;

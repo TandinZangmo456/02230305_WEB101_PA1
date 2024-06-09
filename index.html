@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
     <div id="root">
@@ -23,18 +24,18 @@
         <section class="search-main">
             <div class="search">
                 <form id="searchForm">
-                    <input type="text" id="searchInput" placeholder="search.." value="">
+                    <input type="text" id="searchInput" placeholder="Search for a Pokémon..." value="">
                     <button type="submit">Search</button>
                 </form>
                 <div class="search-example">
                     <p id="eg">Eg.</p>
-                    <a href="/pokemon/bulbasaur">
+                    <a href="#" data-name="bulbasaur">
                         <p>bulbasaur</p>
                     </a>
-                    <a href="/pokemon/ivysaur">
+                    <a href="#" data-name="ivysaur">
                         <p>ivysaur</p>
                     </a>
-                    <a href="/pokemon/venusaur">
+                    <a href="#" data-name="venusaur">
                         <p>venusaur</p>
                     </a>
                 </div>
@@ -45,7 +46,7 @@
         <div class="navigation">
             <ul>
                 <li><a href="/">Home <img src="/src/Home.png" alt="Home icon"></a></li>
-                <li><a href="#">Caught</a></li>
+                <li><a href="#" id="caughtButton">Caught</a></li>
                 <li><a href="#">Seen</a></li>
                 <li><a href="#">Not Seen</a></li>
                 <li><a href="#">Bookmark <img src="/src/bookmark.png" alt="Bookmark icon"></a></li>
@@ -79,6 +80,22 @@
                     const pokemonCard = document.createElement('a');
                     pokemonCard.href = 'type.html';
                     pokemonCard.classList.add('pokemon-card');
+                    if (isPokemonCaught(pokemonData.name)) {
+                        pokemonCard.classList.add('caught');
+                    }
+
+                    let plusSignContainer = pokemonCard.querySelector('.plus-sign-container');
+                    if (!plusSignContainer) {
+                        plusSignContainer = document.createElement('div');
+                        plusSignContainer.classList.add('plus-sign-container');
+
+                        const plusSign = document.createElement('span');
+                        plusSign.textContent = '+';
+                        plusSign.classList.add('plus-sign');
+
+                        plusSignContainer.appendChild(plusSign);
+                        pokemonCard.appendChild(plusSignContainer);
+                    }
 
                     const pokemonSerial = document.createElement('div');
                     pokemonSerial.textContent = `#${serialNumber++}`;
@@ -116,6 +133,10 @@
                     pokemonCard.appendChild(pokemonImageContainer);
                     pokemonCard.appendChild(pokemonInfo);
 
+                    pokemonCard.addEventListener('click', function() {
+                        toggleCaughtStatus(pokemonData.name, pokemonCard);
+                    });
+
                     pokemonContainer.appendChild(pokemonCard);
                 });
 
@@ -124,6 +145,20 @@
             } catch (error) {
                 console.error('Error fetching Pokémon data:', error);
                 document.getElementById('loading').textContent = 'An error occurred while loading Pokémon data.';
+            }
+        }
+
+        function isPokemonCaught(pokemonName) {
+            return localStorage.getItem(pokemonName) !== null;
+        }
+
+        function toggleCaughtStatus(pokemonName, pokemonCard) {
+            if (isPokemonCaught(pokemonName)) {
+                localStorage.removeItem(pokemonName);
+                pokemonCard.classList.remove('caught');
+            } else {
+                localStorage.setItem(pokemonName, 'caught');
+                pokemonCard.classList.add('caught');
             }
         }
 
@@ -142,6 +177,22 @@
                 const pokemonCard = document.createElement('a');
                 pokemonCard.href = 'type.html';
                 pokemonCard.classList.add('pokemon-card');
+                if (isPokemonCaught(pokemonData.name)) {
+                    pokemonCard.classList.add('caught');
+                }
+
+                let plusSignContainer = pokemonCard.querySelector('.plus-sign-container');
+                if (!plusSignContainer) {
+                    plusSignContainer = document.createElement('div');
+                    plusSignContainer.classList.add('plus-sign-container');
+
+                    const plusSign = document.createElement('span');
+                    plusSign.textContent = '+';
+                    plusSign.classList.add('plus-sign');
+
+                    plusSignContainer.appendChild(plusSign);
+                    pokemonCard.appendChild(plusSignContainer);
+                }
 
                 const pokemonSerial = document.createElement('div');
                 pokemonSerial.textContent = `#${pokemonData.id}`;
@@ -179,6 +230,10 @@
                 pokemonCard.appendChild(pokemonImageContainer);
                 pokemonCard.appendChild(pokemonInfo);
 
+                pokemonCard.addEventListener('click', function() {
+                    toggleCaughtStatus(pokemonData.name, pokemonCard);
+                });
+
                 pokemonContainer.appendChild(pokemonCard);
             } catch (error) {
                 console.error('Error fetching Pokémon data:', error);
@@ -193,6 +248,23 @@
         });
 
         observer.observe(document.getElementById('loading'));
+
+        // Add event listener to the "Caught" button
+        const caughtButton = document.getElementById('caughtButton');
+        caughtButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const pokemonCards = document.querySelectorAll('.pokemon-card');
+            pokemonCards.forEach(pokemonCard => {
+                if (!pokemonCard.classList.contains('caught')) {
+                    pokemonCard.style.display = 'none';
+                } else {
+                    pokemonCard.style.display = 'block';
+                }
+            });
+        });
+
+        // Initial loading of Pokémon
+        getPokemonData();
     </script>
 </body>
 </html>
